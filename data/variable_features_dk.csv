@@ -1,0 +1,153 @@
+Variable name,variable representations,allowable units,exception units,preferred unit for normalization,minimum value by domain knowledge,maximum value by domain knowledge,domain knowledge source
+HBA1C,glycated haemoglobin|glycated hemoglobin|glycosylated hemoglobin|hemoglobin A1c| HemoglobinA1c|hgba1c|hga1c|hba1c|ha1c|ba1c|a1c|hb1c,%|percent,ALL_OTHER,%,4,12,http://www.medicinenet.com/hemoglobin_a1c_test/article.htm
+Glucose,ogtt glucose|fasting blood glucose|fasting plasma glucose|fasting plasma|glucose|dextrose|grape sugar|plasmatic level of sugar|FPG|OGTT|FBS|Fasting blood sugar|FBG,mg/dl|g/l|mmol/l|mmol|millimoles/liter,TEMPORAL|%|percentiu|uiu|kg/m2|kg|nmol|/|g|mg|ml/min|mm|uiu/ml,mmol/l,4,20,http://www.diabetes.co.uk/diabetes_care/blood-sugar-level-ranges.html
+Glucose tolerance,oral glucose tolerance|glucose tolerance|oral glucose,grams,TEMPORAL|%|percentiu|uiu|kg/m2|kg|nmol|/|g|mg|ml/min|mm|uiu/ml,g,0,1000
+Insulin,fasting insulin|insulin glargine|insulin,uiu/ml,TEMPORAL|mg/dl|%|kg/m2,uiu/ml,0,1000
+BMI,Body mass index|BMI|Quetelet index,kg/m2|kg/m^2|kg/m\(2\)|kg\.m2|kgm-2|kg/m|lb/in2|kg|mg/kg2,TEMPORAL|%|percentiu|uiu|nmol|/|g|millimoles|ml/min,kg/m2,16,40,http://apps.who.int/bmi/index.jsp?introPage=intro_3.html
+Creatinine,serum creatinine|s - creatinine|creatinine,mg/dl|micromol/l|umol/l|mol/l|mmol/l|mmol|mg/g|mg/gram|m/dl|ml/min,TEMPORAL|%|percentiu|uiu|kg|nmol|/|g|mg|millimoles,mg/dl,0.4,2,http://www.webmd.com/a-to-z-guides/creatinine-and-creatinine-clearance?page=3
+Creatinine ratio,Creatinine ratio,ug/mg,TMEMPORAL,ug/mg,0,1
+Creatinine clearance,creatinine clearance,ml/min,TEMPORAL|%|percentiu|uiu|kg|nmol|/|g|mg|millimoles,mg/dl,10,100,
+insulin naive,insulin naive,,TEMPORAL,oads,0,100, 
+BP,hypersensitivity|HYSN|hypertension|blood pressure|BP,,TEMPORAL,,0,1000,
+BP-Systolic,SBP|systolic blood pressure|systolic BP|systolic,mmhg|mm hg|millimeters of mercury|mm/hg,TEMPORAL|%|percentiu|uiu|kg|nmol|g|mg|millimoles|micromol|umol|mol|mmol|beats/min,mm/hg,0,200,
+BP-Diastolic,DBP|diastolic blood pressure|diastolic BP|diastolic,mmhg|mm hg|millimeters of mercury|mm/hg,TEMPORAL|%|percentiu|uiu|kg|nmol|g|mg|millimoles|micromol|umol|mol|mmol|beats/min,mm/hg,0,200,
+SERUM CALCIUM,serum calcium,mg/dl,TEMPORAL|%,mg/dl,0,100,
+C-peptide,fasting c-peptide|c-peptide,ng/ml,TEMPORAL,ng/ml,0,1000,
+Dosage,dosage,,TEMPORAL,,0,1000,
+Zidovudine,zidovudine|azt,mg/day,,mg/day,0,1000,
+Visual acuity,visual acuity|Acuity,,TEMPORAL,,0,100,
+Myocardial infarction,myocardial infarction,,TEMPORAL,,0,1000,
+ECOG,ecog performance status|performance status ecog|ecog,,TEMPORAL,,0,1000,
+Bilirubin,serum bilirubin|bilirubin,,TEMPORAL,,0,1000,
+Marrow cellularity,marrow cellularity,,TEMPORAL,,0,1000,
+Ejection fraction,ejection fraction,,TEMPORAL,,0,1000,
+Alpha-Fetoprotein,alphafetoprotein|alpha-Fetoprotein|AFP levels|AFP,,TEMPORAL,,0,1000,
+Cholesterol,cholesterol,,TEMPORAL,,0,1000,
+Triglyceride,plasma triglycerides|serum triglyceride|triglycerides|triglyceride,,TEMPORAL,,0,1000,
+Transaminase,transaminase,,TEMPORAL,,0,1000,
+Age,years of age|aged|ages|age|years old|year old|old,TEMPORAL,ALL_OTHER,years,0,100,
+TGHB,tghb,%,TEMPORAL,,0,1000,
+Triglycerides,triglycerides,mg/dl,TEMPORAL,mg/dl,0,1000
+LDL,triglycerides,mg,TEMPORAL,mg/dl,0,1000
+Testosterone,testosterone,,TEMPORAL,mg/dl,0,1000
+Ferrimann-gallway,ferrimann-gallway|ferrimann gallway,,TEMPORAL,mg/dl,0,1000
+Testosterone,testosterone,nmol/l,TEMPORAL,nmol/l,0,1000
+HB,haemoglobin concentration,g/dl,TEMPORAL,g/dl,11,19
+Induration,induration,mm,TEMPORAL,mm,0,1000
+Cd4+,cd4 cell|cd4+|cd4,cells/mm3,TEMPORAL,cells/mm3,0,1000
+Intolerance,intolerance,mg/day,TEMPORAL,mg/day,0,1000 
+AIDS Dementia Complex,aids dementia complex|actg aids dementia complex staging test|aids dementia,,TEMPORAL,,0,100
+Acyclovir,oral acyclovir|acyclovir|acv,TEMPORAL,,,0,1000
+Loose stools,loose stools,,TEMPORAL,,0,10
+Weight Loss,unintentional weight loss|weight loss|body weight,,TEMPORAL,,0,100
+Weight,weighed|weighing|birth weight|weight at birth|weight,grams|lb|kg,TEMPORAL,,0,1000
+Diarrhea,persistent diarrhea,,TEMPORAL,,0,1000
+PCP,pneumocystis carinii pneumonia|pcp,mg,,mg,0,1000
+Retinal lesions,retinal lesions,microns,TEMPORAL,microns,0,10000
+Ibuprofen,ibuprofen,mg/day,TEMPORAL,mg/day,0,10000
+Edema,tumor-associated edema|edema,,TEMPORAL,,0,10
+Fever,fever,degrees|degree,TEMPORAL,degree,0,100
+CMV,cytomegalovirus lesion|cmv|cytomegalovirus,microns,TEMPORAL,microns,0,10000
+Lymphadenopathy,lymphadenopathy,cm,TEMPORAL,cm,0,1000
+Lymphocyte,b-lymphocyte|lymphocytes|lymphocyte,/ul|cells/mm3|percent,TEMPORAL,cells/mm3,0,10000
+Tt-helper cells,t-helper cells,,TEMPORAL,,0,10000
+Serum carotene,serum carotene,iu/ml,TEMPORAL,iu/ml,0,1000
+Vitamin,vitamin,iu/ml,TEMPORAL,iu/ml,0,1000
+HIV antigen titer,hiv antigen titer,pg,TEMPORAL,pg,0,1000
+Thrombocytopenia,thrombocytopenia,platelets/mm3,TEMPORAL,platelets/mm3,0,100000
+Trimethoprim,trimethoprim,mg/day,TEMPORAL,mg/day,0,1000
+Hematocrit,hematocrit,%,TEMPORAL,%,0,100
+Alcoholic,alcoholic drinks|alcoholic|alcohol intake|alcohol,%|drinks,TEMPORAL,,0,1000
+AST,aspartate aminotransferase|ast|SGOT,u/l,TEMPORAL,u/l,0,1000
+ALT,alanine aminotransferase|alt|SGPT,iu/l,TEMPORAL,iu/l,0,1000
+Visual field loss,visual field loss,,TEMPORAL,db,0,100
+IOP,Tonometry|pressure in the eye|intraocular pressure|iop,mm hg,TEMPORAL,mm hg,0,100
+VA,va,,TEMPORAL,,0,10
+MMSE,mini-mental state examination|mmse,,TEMPORAL,,0,1000
+ADAS,adas,,TEMPORAL,,0,1000
+DLCO,dlco,%,TEMPORAL,%,0,100
+Lung capacity,lung capacity,%,TEMPORAL,%,0,100
+Fev1,fev1,%,ALL_OTHER,%,0,100
+Fast acting bronchodilator,fast acting bronchodilator|rescue medication|quick relief medication|quick-acting Bronchodilators|Relivers,puffs/day,TEMPORAL,puffs/day,0,100
+GFR,grf,ml/min,TEMPORAL,ml/min,0,200
+HCT,hematocrit|Ht|HCT|haematocrit|packed cell volume|PCV|erythrocyte volume fraction|EVF,%,ALL_OTHER,%,0,100
+Glycemic control,glycemic control,TEMPORAL,,,0,1000
+Phq-9,phq-9,,TEMPORAL,,0,100
+Bariatric surgery,bariatric surgery,TEMPORAL,ALL_OTHER,,0,100
+Hypoglycemic episode,hypoglycemic episode,,TEMPORAL,,0,100
+EGFR,egfr,ml/min,TEMPORAL,,0,1000
+Myopia,Myopia|nearsighted|shortsighted,,TEMPORAL,,0,100,
+Snellen,snellen,,TEMPORAL,,0,1000
+Lesion,lesion,um,TEMPORAL,um,0,10000
+T4,t4 index|t4,g/dl,TEMPORAL,g/dl,0,100
+Folate,folate,ng/ml,TEMPORAL,ng/ml,1.9,100
+B12,b12,pg/ml,TEMPORAL,pg/ml,100,10000
+Agitation symptoms,agitation symptoms,TEMPORAL,ALL_OTHER,,0,1000
+Therapy,antiretroviral therapy|acute therapy|zidovudine \(azt\) therapy|zidovudine therapy,TEMPORAL,ALL_OTHER,,0,100
+Temperature,temperature,degrees c|degrees,TEMPORAL,degrees,0,1000,
+Persisting,persisting,TEMPORAL,ALL_OTHER,,0,100
+Study entry,study entry|entry,TEMPORAL,ALL_OTHER,,0,100
+MVV,voluntary volume|mvv,%,TEMPORAL,%,0,100
+PO2,po2,,TEMPORAL,,0,1000
+Oxygen saturation,oxygen saturation,%,ALL_OTHER,%,0,100
+inferior,inferior,%,ALL_OTHER,%,0,100
+Goldmann visual field area,Goldmann visual field area|V4e white test light|V4 e white test light|v4e|goldmann perimeter|goldman perimeter,degrees,TEMPORAL,degrees,0,1000
+ERG,erg amplitude|erg,,TEMPORAL,,0,100
+White light,white light,hz,TEMPORAL,hz,0,100
+Ultraviolet light,ultraviolet light,hz,TEMPORAL,hz,0,100
+Flickering light,flickering light,hz,TEMPORAL,hz,0,100
+Oral glucocorticoids,Oral glucocorticoids,mg/d,TEMPORAL,mg/d,0,1000
+Methotrexate,methotrexate,,TEMPORAL,,0,1000
+Chest pain,Chest pain,TEMPORAL,ALL_OTHER,,0,1000
+Calories,calories,%|percent,TEMPORAL,%,0,100
+PEFR,pefr,%|percent,TEMPORAL,%,0,100
+Symptom code,diary symptom code|symptom code,,TEMPORAL,,0,100
+Albuterol,albuterol,puffs/day,TEMPORAL,,0,1000
+Albuterol,albuterol,puffs/day,TEMPORAL,,0,1000
+QTC,qtc,msec,TEMPORAL,,0,1000
+LVEF,lvef,%,TEMPORAL,%,0,1000
+VT or VF,vt or vf|Ventricular tachycardia|VT|ventricular fibrillation|VF,beats/min|beats,TEMPORAL,beats/min,0,1000
+Microglobulin,microglobulin,,TEMPORAL,,0,1000
+Biopsies,biopsies,,TEMPORAL|%,,0,1000
+Tumor,tumor,%,TEMPORAL,,0,1000
+WBC,wbc|White blood cell,mm^3,TEMPORAL,,0,1000
+Do2,do2,torr,TEMPORAL,,0,1000
+Neutrophil,neutrophil,cells/mm3,TEMPORAL,cells/mm3,0,10000
+ANC,Absolute neutrophil count|ANC,cells/mm3|/mm3|cells per microliter,TEMPORAL,,0,10000 
+Occasions,occasions,TEMPORAL,ALL_OTHER,,0,100
+Platelets,platelets,platelets/mm3,TEMPORAL,,0,1000000
+Fio2,fio2,percent|%,TEMPORAL,,0,100
+Protein,protein,g,TEMPORAL,,0,1000
+Pregnant,pregnant,TEMPORAL,ALL_OTHER,,0,100
+Blood cell transfusion,Blood cell transfusion,TEMPORAL,ALL_OTHER,,0,100
+SERUM TRANSAMINASE,serum concentrations of hepatic transaminases|Serum Transaminase|hepatic transaminases,,TEMPORAL,,0,1000
+RNA,Ribonucleic acid|RNA,copies/ml,TEMPORAL,,0,1000
+Intercourse,sexual intercourse attempts,TEMPORAL,ALL_OTHER,,0,100
+Heart rate,supine mean heart rate,beats/min|beats,TEMPORAL,beats/min,0,300
+Surgery,surgery,TEMPORAL,ALL_OTHER,,0,100
+PR,pr,msec,TEMPORAL,,0,1000
+QRS,qrs,msec,TEMPORAL,,0,1000
+Bradycardia,bradycardia,bpm,TEMPORAL,,0,1000
+Failure rate,failure rate,precent|%,TEMPORAL,,0,100
+LDL Cholesterol,LDL Cholesterol|ldl - cholesterol|LDL-Cholesterol|Low-density lipoprotein|cholesterol,,TEMPORAL,,0,1000
+Stenosis,asymptomatic stenosis|stenosis,%,TEMPORAL,%,0,100
+KBIT,kaufman brief intelligence test|kbit,,TEMPORAL,,0,300
+Apnea,apnea,,TEMPORAL,,0,1000
+Lymph node,lymph node,cm,TEMPORAL,,0,1000
+Smoking,smoking,pack years|pack-years|TEMPORAL,,,0,1000
+INR,international normalized ratio|inr,,TEMPORAL,,0,1000
+A-gst,a-gst,,,,0,1000
+Neutrophils,neutrophils,/l,TEMPORAL,,0,10000
+Massive nodes,massive nodes|massive node,cm,TEMPORAL,cm,0,1000
+Karnofsky,karnofsky,,TEMPORAL,,0,1000
+MAGE,MAGE,mmol/l,TEMPORAL,,0,1000
+Lines of treatment,lines of treatment,,TEMPORAL,,0,1000,
+Tumor types,tumor types,,TEMPORAL,,0,1000,
+Lines of therapy,lines of therapy,,TEMPORAL,,0,1000,
+Lines of chemotherapy,lines of chemotherapy,,TEMPORAL,,0,1000,
+Lines of immunotherapy,lines of immunotherapy,,TEMPORAL,,0,1000,
+Lines of radiotion therapy,lines of radiotion therapy,,TEMPORAL,,0,1000,
+Lines of liposomal therapy,lines of liposomal therapy,,TEMPORAL,,0,1000,
+Measureable disease,measureable disease,,TEMPORAL,,0,1000,
+Biopsible disease,biopsible disease,,TEMPORAL,,0,1000,
+Brain metastasis,brain metastasis,,TEMPORAL,,0,1000,
