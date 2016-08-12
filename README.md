@@ -15,7 +15,9 @@ import Valx_core
 Valx_core.preprocessing (text)
 </code>
 
-### Split eligibility criteria text into inclusion and exclusion sections (ignore if the text is not eligibility criteria)
+### Split eligibility criteria text into inclusion and exclusion sections 
+
+Please ignore this step if the text is not clincial trial eligibility criteria text
 
 <code>
 Valx_core.split_text_inclusion_exclusion (text)
@@ -28,7 +30,7 @@ Valx_core.extract_candidates_numeric(text)
 </code>
 
 ### Identify numerical expressions
-Identify expressions and formalize them into labels, e.g., "<VML(tag) L(logic, e.g., greater_equal)=X U(unit)=X>value</VML>"
+Identify expressions and formalize them into labels, e.g., "&lt;VML(tag) L(logic, e.g., greater_equal)=X U(unit)=X&gt;value&lt;/VML&gt;"
 
 <code>
 Valx_core.formalize_expressions (candidates[])
@@ -49,7 +51,7 @@ Valx_core.associate_variable_values(expression_text)
 ### Context-based validation
 
 <code>
-Valx_core.context_validation(text)
+Valx_core.context_validation(expressions)
 </code>
 
 ### Unit conversion and value normalization
@@ -57,22 +59,22 @@ Valx_core.context_validation(text)
 Normalize the unit and their corresponding values
 
 <code>
-Valx_core.normalization(nor_unit, exps)
+Valx_core.normalization(feature_list, expressions)
 </code>
 
 ### Heuristic rule-based validation
 
 <code>
-Valx_core.context_validation(text)
+Valx_core.context_validation(expressions)
 </code>
 
 
 ## Usage examples
 
-Valx_CTgov.py
+<code>Valx_CTgov.py</code>
 demostrating how to use the Valx for extracting and structuring certain types of numeric lab test comparison statements from clincial trial eligibility criteria texts using single CPU core.
 
-Valx_CTgov_multiCPUcores.py
+<code>Valx_CTgov_multiCPUcores.py</code>
 demostrating how to use the Valx for extracting and structuring certain types of numeric lab test comparison statements from clincial trial eligibility criteria texts using multiple CPU cores
 
 ## Online Demo
@@ -81,4 +83,4 @@ http://columbiaelixr.appspot.com/valx
 
 ## Citation
 
-Tianyong Hao, Hongfang Liu, Chunhua Weng. Valx: A system for extracting and structuring numeric lab test comparison statements from text. Methods of Information in Medicine. Vol. 55: Issue 3, pp. 266-275, 2016 <a href=http://www.ncbi.nlm.nih.gov/pubmed/26940748 target=_blank>Pubmed</a>
+Tianyong Hao, Hongfang Liu, Chunhua Weng. Valx: A system for extracting and structuring numeric lab test comparison statements from text. Methods of Information in Medicine. Vol. 55: Issue 3, pp. 266-275, 2016 <a href=http://www.ncbi.nlm.nih.gov/pubmed/26940748 target=_blank>on Pubmed</a>
