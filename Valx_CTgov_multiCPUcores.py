@@ -11,7 +11,7 @@ from multiprocessing import Process, Manager
 #thread worker function
 def worker(trials, start,end, var, features, feature_dict_dk, fea_dict_umls, output):
     for i in xrange(start,end+1):
-        if i%200 == 0:
+        if i%200 == 0: #define output frequency
             print ('processing %d' % i)
         # pre-processing text,
         text = Valx_core.preprocessing(trials[i][1]) # trials[i][1] is eligibility criteria text
@@ -93,7 +93,7 @@ def _process_args():
     parser.add_argument('-f1', default=r"D:\_My_programs\_CUMC\Extract_Variables\_GitHub\data\variable_features_dk.csv", help='input: a feature list')
     parser.add_argument('-f2', default=r"D:\_My_programs\_CUMC\Extract_Variables\_GitHub\data\variable_features_umls.csv", help='input: a feature list')
     parser.add_argument('-v', default="HBA1C", help='Variable name: All, HBA1C, BMI, Glucose, Creatinine, BP-Systolic, BP-Diastolic') # 'All' means to detect all variables
-    parser.add_argument('-c', default=4, type=int, help=' define how many cpu cores will be used')  #
+    parser.add_argument('-c', default=4, type=int, help=' define the number of used CPU cores')  #
     return parser.parse_args(sys.argv[1:])
 
 
