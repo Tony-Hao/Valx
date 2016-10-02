@@ -81,6 +81,13 @@ demostrating how to use the Valx for extracting and structuring certain types of
 
 http://columbiaelixr.appspot.com/valx
 
+## Versions
+
+V0.9	The stable version with full functionality
+V1.0	Add multi-CPU core support, enable set core number easily
+V1.1	Separate rules from code to a csv file named as "rules.csv"
+V1.2	Separate numeric feature list from code to a csv file named as "numeric_features.csv"
+
 ## Citation
 
 Tianyong Hao, Hongfang Liu, Chunhua Weng. Valx: A system for extracting and structuring numeric lab test comparison statements from text. Methods of Information in Medicine. Vol. 55: Issue 3, pp. 266-275, 2016 <a href=http://www.ncbi.nlm.nih.gov/pubmed/26940748 target=_blank>on Pubmed</a>
