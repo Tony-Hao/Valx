@@ -24,14 +24,7 @@ def extract_variables (fdin, ffea, ffea2, var):
         print ext_print ('no feature data available --- interrupting')
         return False
 
-    # read feature list - UMLS (can be replaced by full UMLS)
-    if ffea2 is None or ffea2 =="": return False
-    fea_dict_umls = ufile.read_csv_as_dict (ffea2)
-    if fea_dict_umls is None or len(fea_dict_umls) <= 0:
-        print ext_print ('no feature data available --- interrupting')
-        return False
-    
-    # get feature info    
+    # get feature info
     features, feature_dict_dk = {}, {}
     if var == "All":
         features = fea_dict_dk
@@ -42,7 +35,17 @@ def extract_variables (fdin, ffea, ffea2, var):
         names = value[0].lower().split('|')
         for name in names:
             if name.strip() != '': feature_dict_dk[name.strip()] =key
-    
+
+    # read feature list - UMLS (can be replaced by full UMLS)
+    if ffea2 is None or ffea2 =="": return False
+    fea_dict_umls = ufile.read_csv_as_dict (ffea2)
+    if fea_dict_umls is None or len(fea_dict_umls) <= 0:
+        print ext_print ('no feature data available --- interrupting')
+        return False
+
+    #load numeric feature list
+    Valx_core.init_features()
+
     output = []
     for i in xrange(len(trials)):
         if i%1000 == 0:

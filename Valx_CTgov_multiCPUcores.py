@@ -10,6 +10,9 @@ from multiprocessing import Process, Manager
 
 #thread worker function
 def worker(trials, start,end, var, features, feature_dict_dk, fea_dict_umls, output):
+    #load numeric feature list
+    Valx_core.init_features()
+
     for i in xrange(start,end+1):
         if i%200 == 0: #define output frequency
             print ('processing %d' % i)
@@ -52,25 +55,26 @@ def extract_variables (fdin, ffea, ffea2, var, cores):
         print ext_print ('no feature data available --- interrupting')
         return False
 
+    # get feature info
+    features, feature_dict_dk = {}, {}
+    if var == "All":
+        features = fea_dict_dk
+        del features["Variable name"]
+    elif var in fea_dict_dk:
+        features = {var: fea_dict_dk[var]}
+    for key, value in fea_dict_dk.iteritems():
+        names = value[0].lower().split('|')
+        for name in names:
+            if name.strip() != '': feature_dict_dk[name.strip()] = key
+
     # read feature list - umls
     if ffea2 is None or ffea2 =="": return False
     fea_dict_umls = ufile.read_csv_as_dict (ffea2)
     if fea_dict_umls is None or len(fea_dict_umls) <= 0:
         print ext_print ('no feature data available --- interrupting')
         return False
-    
-    # get feature info    
-    features, feature_dict_dk = {}, {}
-    if var == "All":
-        features = fea_dict_dk
-        del features["Variable name"]
-    elif var in fea_dict_dk:
-        features = {var:fea_dict_dk[var]}
-    for key, value in fea_dict_dk.iteritems():
-        names = value[0].lower().split('|')
-        for name in names:
-            if name.strip() != '': feature_dict_dk[name.strip()] =key
-    
+
+
     output = Manager().list()
     jobs = []
     for i in xrange(1,cores+1):

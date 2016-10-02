@@ -4,36 +4,22 @@
 # Please kindly cite the paper: Tianyong Hao, Hongfang Liu, Chunhua Weng. Valx: A system for extracting and structuring numeric lab test comparison statements from text. Methods of Information in Medicine. Vol. 55: Issue 3, pp. 266-275, 2016
 
 import re, math, csv
+import W_utility.file as ufile
 from NLP import sentence
 from NLP import sentence_keywords
 
 #--------------------------Define representative logics and their candidate representations 
 
-greater = "higher than|greater than|greater|above|more than|over|superior to|exceeding|exceed|>|larger than|older than|prior"
-greater_equal = "more than or equal to|equal to or greater than|equal to or higher than|equal to or more than|equal or greater than|equal to or above|superior or equal to|greater than or equal to|greater or equal to|higher or equal than|higher or equal to|greater than or equal|great or equal to|greater / equal|above or equal to|minimum|> or equal to|≥|> =|= >|> or = to|= or >|> or =|> / =|at least|\+"
-greater_equal2 ="or higher|or above|or greater|or more|and above|or over|or older|or bigger|and older|and over"
-lower = "less than|lesser than|below|under|within|<|lower than|worse than|younger than"
-lower_equal = "no more or around|below or equal to|lower or equal to|small than or equal to|less than or equal to|less than or equal|less or equal to|lesser than or equal to|lesser or equal to|lower than or equal to|equal to or lower than|equal to or below|equal to or less than|equal or less than|up to and including|smaller / equal|at most|up to|maximum|max|< or equal to|= <|< =|≤|< or = to|< or =|< / =|< -|= or <"
-lower_equal2 ="or lower|or below|or less|or lesser|at most|or younger|and younger"
-equal = "equal to|="
-between = "range of X to X|range X to X|range X - X|between X to X|between X and X|between Xand X|between X - X|between X & X|from X to X|within X to X|start X and X|X through X|of X and X|>= X and X|> X and X|of X to X|>= X to <= X|>= X to X|> X to X|X - <= X|X to X|X - X"
-select = "X \( X \)|X \( equal to X \)|X \( = X\)"
-connect = "but|and|or|"
-features = "\d+(\.\d+|) x \d+(\.\d+|)|\d+(\^| \^ )\d+|\d+(\.\d+|)"
-temporal = "msec|second|minute|min|hour|h|daily|day|week|month|year|yr|y|consecutive day|night"
-temporal = temporal + '|' + temporal.replace('|','s|') + 's'
-temporal_con = "last|past|previous|recent|next|following|upcoming|preceding"
-error1 = "type|typ|stage|appendix|section|group|visit|part|version|grade|category|phase|class|number|no."
-error2 = "\+/ -|\+ -|±"
-symbols = r"≥|>|≤|<|=|/|\\|\(|\)|\[|\]|\{|\}"
-numbers = "one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand|million|billion"
-unit_special = 'mmol l-1|miu/ml minimum|9/l|ml/min/1\.73 m2|ml/min1|ml/min - 1|ml/min per 1\.73 m2|ml/min/m2\{1\.73\}|ml/min/1\.73m2|signs/symptoms'
-unit_ori ='mmol li+|mmol l|mol l|miu/ml minimum|miu/ml|centimetre of water|centimeter of water|cmH2O|cm H2O|x institutional upper limit of normal|x the upper limit of normal|x upper limits of normal|x upper limit of normal|x normal upper limit|x uln|the upper limit of normal|upper limits of normal|upper limit of normal|normal upper limit|uln|mm\^3|mm3|kg2|ng ml|ng|ug|mmol|mol|percentiu|nmol|m\^2|\.m2|m\(2\)|kg m2|m2|kgm-2|in2|micromol|umol|mmhg|mm hg|millimeters of mercury|mm|hg|pmol|%|percent|uiu|iu|ul|ml min|ml|mg day|mg kg|g dl|mg dl|mg|dl|uln|gm|cm3|cc\'s|cm|mcg|microns|rads|pg|um|torr|u|g|l|m|%|times|iuln|mcl|study|studies|cns|nyha|d|ptt|pt|inr|nsaid|copy|copies|iud|giga|F|C|v|fsh|wbc|plt|hgb|hpf|vwd|category|categories|oads'
-unit_ori_s ='liquid stool|pack year|pack - year|kilogram|square meter|meter|platelet|millimole|liter|kg|gram|beat|lb|mile|cell|degree|drink|protein|msec|patient|quadrant|reading|lesion|regimen|foot|cigarette|crise|device|dose|diameter|agent|unit|scan|episode|method|movement|site|sign|event|symptom|egg|dosage|subject|joint|item|examination|exam|point|course|form|measurement|feature|criterion|high power field|example|sample|occasion|person|incident'
-unit = (unit_ori+'|'+unit_ori_s.replace('|','s|')+'s|'+unit_ori_s+'|'+temporal)
-unit_exp = 'st|nd|rd|th'
-negation = "not able to|not allowed to|not to|not|none|non|no|never|unlikely"
+greater, greater_equal, greater_equal2, lower, lower_equal, lower_equal2, equal, between, selects, connect, features, temporal, temporal_con, error1, error2, symbols, numbers, unit_special, unit_ori, unit_ori_s, unit_exp, negation = "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
 
+def init_features ():
+    feature_set = ufile.read_csv_as_dict ('data\\numeric_features.csv', 0, 1, True)
+    global greater, greater_equal, greater_equal2, lower, lower_equal, lower_equal2, equal, between, selects, connect, features, temporal, temporal_con, error1, error2, symbols, numbers, unit_special, unit_ori, unit_ori_s, unit_exp, negation
+    greater, greater_equal, greater_equal2, lower, lower_equal, lower_equal2, equal, between, selects, connect, features, temporal, temporal_con, error1, error2, symbols, numbers, unit_special, unit_ori, unit_ori_s, unit_exp, negation = \
+    feature_set["greater"], feature_set["greater_equal"], feature_set["greater_equal2"], feature_set["lower"], feature_set["lower_equal"], feature_set["lower_equal2"], feature_set["equal"], feature_set["between"], feature_set["selects"], feature_set["connect"], feature_set["features"], feature_set["temporal"], feature_set["temporal_con"], feature_set["error1"], feature_set["error2"], feature_set["symbols"], feature_set["numbers"], feature_set["unit_special"], feature_set["unit_ori"], feature_set["unit_ori_s"], feature_set["unit_exp"], feature_set["negation"]
+    temporal = temporal + '|' + temporal.replace('|', 's|') + 's'
+    unit = (unit_ori + "|" + unit_ori_s.replace("|", "s|") + "s|" + unit_ori_s + "|" + temporal)
+    return ""
 
 def preprocessing (text):
     # handle special characters
@@ -143,27 +129,24 @@ def formalize_expressions (candidate):
             for match in matchs: text = text.replace(match, match.replace(' / ', '/').replace(' - ','-'))
 
         if(pattern_function == "process_special_logics" and pattern_function != now_pattern):
-
             # process 'select' expression, use the first one
-            selects = select.split('|')
-            for selec in selects:
+            global selects
+            aselect = selects.split('|')
+            for selec in aselect:
                 selec = selec.replace('X', '<VML Unit([^<>]+)>([^<>]+)</VML>')
                 text = re.sub(selec, r'<VML Unit\1>\2</VML>', text) #
 
             #  process 'between' expressions
+            global between
             betweens = between.split('|')
             for betw in betweens:
                 betw = betw.replace('X', '<VML Unit([^<>]+)>([^<>]+)</VML>')
                 text = re.sub(betw, r'<VML Logic=greater_equal Unit\1>\2</VML> - <VML Logic=lower_equal Unit\3>\4</VML>', text) #
-
         text = re.sub(source_pattern, target_pattern, text)
         now_pattern = pattern_function
 
-
     csvfile.close()
-
     return text
-
 
 
 add_mentions_front = 'total|absolute|mean|average|abnormal|gross'
