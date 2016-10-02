@@ -84,8 +84,11 @@ http://columbiaelixr.appspot.com/valx
 ## Versions
 
 V0.9	The stable version with full functionality
+
 V1.0	Add multi-CPU core support, enable set core number easily
+
 V1.1	Separate rules from code to a csv file named as "rules.csv"
+
 V1.2	Separate numeric feature list from code to a csv file named as "numeric_features.csv"
 
 ## Citation
