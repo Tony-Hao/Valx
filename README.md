@@ -98,4 +98,5 @@ Tianyong Hao, Hongfang Liu, Chunhua Weng. Valx: A system for extracting and stru
 ## Contributors
 
 Tianyong Hao
+
 Chengtao Li (new Web user interface with online pattern editing function)
