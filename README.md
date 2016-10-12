@@ -94,3 +94,8 @@ V1.2	Separate numeric feature list from code to a csv file named as "numeric_fea
 ## Citation
 
 Tianyong Hao, Hongfang Liu, Chunhua Weng. Valx: A system for extracting and structuring numeric lab test comparison statements from text. Methods of Information in Medicine. Vol. 55: Issue 3, pp. 266-275, 2016 <a href=http://www.ncbi.nlm.nih.gov/pubmed/26940748 target=_blank>on Pubmed</a>
+
+## Contributors
+
+Tianyong Hao
+Chengtao Li (new Web user interface with online pattern editing function)
