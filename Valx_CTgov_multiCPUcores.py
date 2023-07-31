@@ -13,18 +13,18 @@ def worker(trials, start,end, var, features, feature_dict_dk, fea_dict_umls, out
     #load numeric feature list
     Valx_core.init_features()
 
-    for i in xrange(start,end+1):
+    for i in range(start,end+1):
         if i%200 == 0: #define output frequency
-            print ('processing %d' % i)
+            print(('processing %d' % i))
         # pre-processing text,
         text = Valx_core.preprocessing(trials[i][1]) # trials[i][1] is eligibility criteria text
         (sections_num, candidates_num) = Valx_core.extract_candidates_numeric(text) # extract candidates containing numeric features
-        for j in xrange(len(candidates_num)): # for each candidate
+        for j in range(len(candidates_num)): # for each candidate
             exp_text = Valx_core.formalize_expressions(candidates_num[j]) # identify and formalize values
             (exp_text, key_ngrams) = Valx_core.identify_variable(exp_text, feature_dict_dk, fea_dict_umls) # identify variable mentions and map to names
             (variables, vars_values) = Valx_core.associate_variable_values(exp_text)
             all_exps = []
-            for k in xrange(len(variables)):
+            for k in range(len(variables)):
                 curr_var = variables[k]
                 curr_exps = vars_values[k]
                 if curr_var in features:
@@ -44,15 +44,15 @@ def extract_variables (fdin, ffea, ffea2, var, cores):
     if fdin is None or fdin =="": return False
     trials = ufile.read_csv (fdin)
     if trials is None or len(trials) <= 0:
-        print ext_print ('input data error, please check either no such file or no data --- interrupting')
+        print(ext_print ('input data error, please check either no such file or no data --- interrupting'))
         return False
-    print ext_print ('found a total of %d data items' % len(trials))
+    print(ext_print ('found a total of %d data items' % len(trials)))
     
     # read feature list - domain knowledge
     if ffea is None or ffea =="": return False
     fea_dict_dk = ufile.read_csv_as_dict_with_multiple_items (ffea)
     if fea_dict_dk is None or len(fea_dict_dk) <= 0:
-        print ext_print ('no feature data available --- interrupting')
+        print(ext_print ('no feature data available --- interrupting'))
         return False
 
     # get feature info
@@ -71,13 +71,13 @@ def extract_variables (fdin, ffea, ffea2, var, cores):
     if ffea2 is None or ffea2 =="": return False
     fea_dict_umls = ufile.read_csv_as_dict (ffea2)
     if fea_dict_umls is None or len(fea_dict_umls) <= 0:
-        print ext_print ('no feature data available --- interrupting')
+        print(ext_print ('no feature data available --- interrupting'))
         return False
 
 
     output = Manager().list()
     jobs = []
-    for i in xrange(1,cores+1):
+    for i in range(1,cores+1):
         t = Process(target=worker, args=(trials, len(trials)*(i-1)/cores,len(trials)*i/cores-1, var, features, feature_dict_dk, fea_dict_umls, output))
         jobs.append(t)
         t.start()    
@@ -85,7 +85,7 @@ def extract_variables (fdin, ffea, ffea2, var, cores):
 
     fout = os.path.splitext(fdin)[0] + "_exp_%s.csv" % var
     ufile.write_csv (fout, output)
-    print ext_print ('saved processed results into: %s' % fout)
+    print(ext_print ('saved processed results into: %s' % fout))
     return True
 
 
@@ -102,7 +102,7 @@ def _process_args():
 
 
 if __name__ == '__main__' :
-    print ''
+    print('')
     args = _process_args()
     extract_variables (args.i, args.f1, args.f2, args.v, args.c)
-    print ''
+    print('')

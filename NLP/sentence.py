@@ -3,9 +3,10 @@
 # Created by Tony HAO, th2510@columbia.edu
 
 from nltk import sent_tokenize
-import word as NLP_word
+import NLP.word as NLP_word
 import re, string
-import porter2
+#import porter2
+
 
 # splitting text into Sentences using NLTK tokenization
 def sentence_splitting (texts, slen = 1):
@@ -88,7 +89,7 @@ def phrase_cleaning(txt):
 
 def stem_phrase(phrase):
 	words = phrase.split()
-	for i in xrange(0, len(words)):
+	for i in range(0, len(words)):
 		words [i] = porter2.stem(words[i])
 		
 	return ' '.join(words)

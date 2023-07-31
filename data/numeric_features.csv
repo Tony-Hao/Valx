@@ -8,7 +8,7 @@
 "between","range of X to X|range X to X|range X - X|between X to X|between X and X|between Xand X|between X - X|between X & X|from X to X|within X to X|start X and X|X through X|of X and X|>= X and X|> X and X|of X to X|>= X to <= X|>= X to X|> X to X|X - <= X|X to X|X - X"
 "selects","X \( X \)|X \( equal to X \)|X \( = X\)"
 "connect","but|and|or|"
-"features","\d+(\.\d+|) x \d+(\.\d+|)|\d+(\^| \^ )\d+|\d+(\.\d+|)"
+"features","\\d+(\\.\\d+|) x \\d+(\\.\\d+|)|\\d+(\\^| \\^ )\\d+|\\d+(\\.\\d+|)"
 "temporal","msec|second|minute|min|hour|h|daily|day|week|month|year|yr|y|consecutive day|night"
 "temporal_con","last|past|previous|recent|next|following|upcoming|preceding"
 "error1","type|typ|stage|appendix|section|group|visit|part|version|grade|category|phase|class|number|no."
