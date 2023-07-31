@@ -5,7 +5,6 @@
 from nltk import sent_tokenize
 import NLP.word as NLP_word
 import re, string
-#import porter2
 
 
 # splitting text into Sentences using NLTK tokenization

@@ -149,13 +149,11 @@ def formalize_expressions (candidate):
             pattern_function = pattern[2]
 
             if pattern_function == "process_numerical_values" and pattern_function != now_pattern:
-                # print("ping e")
                 matchs = re.findall('<Unit>([^<>]+)</Unit>', text)
                 for match in matchs:
                     text = text.replace(match, match.replace(' / ', '/').replace(' - ', '-'))
 
             if pattern_function == "process_special_logics" and pattern_function != now_pattern:
-                # print("ping f")
                 # process 'select' expression, use the first one
                 global selects
                 aselect = selects.split('|')
@@ -170,10 +168,6 @@ def formalize_expressions (candidate):
                     betw = betw.replace('X', '<VML Unit([^<>]+)>([^<>]+)</VML>')
                     text = re.sub(betw, r'<VML Logic=greater_equal Unit\1>\2</VML> - <VML Logic=lower_equal Unit\3>\4</VML>', text)
 
-            # print("\n\n")
-            # print("source pattern: ", source_pattern)
-            # print("target pattern: ", target_pattern)
-            # print("text: ", text)
             text = re.sub(source_pattern, target_pattern, text)
             now_pattern = pattern_function
 
@@ -185,9 +179,7 @@ add_mentions_back = 'test results|test result|test scores|test score|tests|test|
 def identify_variable (exp_text, fea_dict_dk, fea_dict_umls):
     # find candidate string
     if exp_text.find('<VML') == -1:
-        # print("ping b")
         return (exp_text, [])
-    # print("ping a")
     can_texts = re.findall('(\A|VML>)(.+?)(<VML|\Z)',exp_text) 
     
     # generate n-grams
@@ -244,11 +236,6 @@ def associate_variable_values(exp_text):
     # find association    
     variables, vars_values = [], []
     start = 0
-
-
-    # print("ping, can_str.find('<VL') >-1 and can_str.find('<VML') >-1, ", str(can_str.find('<VL')), " and ", str(can_str.find('<VML')))
-    # print("can_str    : ", can_str)
-    # print("old_can_str: ", old_can_str)
 
 
     while can_str.find('<VL') >-1 and can_str.find('<VML') >-1:

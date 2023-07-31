@@ -10,11 +10,6 @@ import io
 import csv
 
 def extract_variables (fdin, ffea, ffea2, var):
-    print(f"Processing fdin: ", fdin)
-    print(f"Processing ffea: ", ffea)
-    print(f"Processing ffea2: ", ffea2)
-    print(f"Processing var: ", var)
-
     # read input data
     if fdin is None or fdin =="": return False
     trials = ufile.read_csv (fdin)
@@ -49,31 +44,22 @@ def extract_variables (fdin, ffea, ffea2, var):
         print(ext_print ('no feature data available --- interrupting'))
         return False
 
-    # print("feature_dict_dk: ", feature_dict_dk)
-    # print("features: ", features)
-    # print("trials: ", trials)
-
-    #load numeric feature list
+    # load numeric feature list
     Valx_core.init_features()
 
     output = []
     for i in range(len(trials)):
-        #if i%1000 == 0:
         if i%(int(len(trials) / 10)) == 0:
             print(('processing %d' % i))
         # pre-processing eligibility criteria text
         text = Valx_core.preprocessing(trials[i][1]) # trials[i][1] is the eligibility criteria text
         (sections_num, candidates_num) = Valx_core.extract_candidates_numeric(text) # extract candidates containing numeric features
-        # print("sections_num: ", sections_num)
-        # print("candidates_num: ", candidates_num, "\n")
         for j in range(len(candidates_num)): # for each candidate
             exp_text = Valx_core.formalize_expressions(candidates_num[j]) # identify and formalize values
             (exp_text, key_ngrams) = Valx_core.identify_variable(exp_text, feature_dict_dk, fea_dict_umls) # identify variable mentions and map them to names
             (variables, vars_values) = Valx_core.associate_variable_values(exp_text)
-            # print("(variables, vars_values), (", exp_text, ", ", vars_values, ")")
             all_exps = []
             for k in range(len(variables)):
-                # print("ping")
                 curr_var = variables[k]
                 curr_exps = vars_values[k]
                 if curr_var in features:
