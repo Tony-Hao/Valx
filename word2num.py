@@ -216,4 +216,4 @@ if __name__ == "__main__":
         ]
     wtn = WordsToNumbers()
     for num in nums:
-        print num, ": ", wtn.parseWord(num)
+        print(num, ": ", wtn.parseWord(num))

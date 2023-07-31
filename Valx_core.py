@@ -7,23 +7,47 @@ import re, math, csv
 import W_utility.file as ufile
 from NLP import sentence
 from NLP import sentence_keywords
+import copy
 
 #--------------------------Define representative logics and their candidate representations 
 
 greater, greater_equal, greater_equal2, lower, lower_equal, lower_equal2, equal, between, selects, connect, features, temporal, temporal_con, error1, error2, symbols, numbers, unit_special, unit_ori, unit_ori_s, unit_exp, negation = "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
 
 def init_features ():
-    feature_set = ufile.read_csv_as_dict ('data\\numeric_features.csv', 0, 1, True)
+    feature_set = ufile.read_csv_as_dict ('data/numeric_features.csv', 0, 1, True)
+
     global greater, greater_equal, greater_equal2, lower, lower_equal, lower_equal2, equal, between, selects, connect, features, temporal, temporal_con, error1, error2, symbols, numbers, unit_special, unit_ori, unit_ori_s, unit_exp, negation
-    greater, greater_equal, greater_equal2, lower, lower_equal, lower_equal2, equal, between, selects, connect, features, temporal, temporal_con, error1, error2, symbols, numbers, unit_special, unit_ori, unit_ori_s, unit_exp, negation = \
-    feature_set["greater"], feature_set["greater_equal"], feature_set["greater_equal2"], feature_set["lower"], feature_set["lower_equal"], feature_set["lower_equal2"], feature_set["equal"], feature_set["between"], feature_set["selects"], feature_set["connect"], feature_set["features"], feature_set["temporal"], feature_set["temporal_con"], feature_set["error1"], feature_set["error2"], feature_set["symbols"], feature_set["numbers"], feature_set["unit_special"], feature_set["unit_ori"], feature_set["unit_ori_s"], feature_set["unit_exp"], feature_set["negation"]
+
+    greater = feature_set["greater"]
+    greater_equal = feature_set["greater_equal"]
+    greater_equal2 = feature_set["greater_equal2"]
+    lower = feature_set["lower"]
+    lower_equal = feature_set["lower_equal"]
+    lower_equal2 = feature_set["lower_equal2"]
+    equal = feature_set["equal"]
+    between = feature_set["between"]
+    selects = feature_set["selects"]
+    connect = feature_set["connect"]
+    features = feature_set["features"]
+    temporal = feature_set["temporal"]
+    temporal_con = feature_set["temporal_con"]
+    error1 = feature_set["error1"]
+    error2 = feature_set["error2"]
+    symbols = feature_set["symbols"]
+    numbers = feature_set["numbers"]
+    unit_special = feature_set["unit_special"]
+    unit_ori = feature_set["unit_ori"]
+    unit_ori_s = feature_set["unit_ori_s"]
+    unit_exp = feature_set["unit_exp"]
+    negation = feature_set["negation"]
+
     temporal = temporal + '|' + temporal.replace('|', 's|') + 's'
     unit = (unit_ori + "|" + unit_ori_s.replace("|", "s|") + "s|" + unit_ori_s + "|" + temporal)
     return ""
 
 def preprocessing (text):
     # handle special characters
-    text = text.decode('ascii', 'ignore')
+    text = text.encode('ascii', 'ignore').decode('ascii')
 
     text = text.strip().replace('\n\n', '#')
     text = text.replace ('\n', '')
@@ -102,7 +126,7 @@ def extract_candidates_name (sections_num, candidates_num, name_list):
     sections = []
     candidates = []
     names = name_list.split('|')
-    for i in xrange(len(candidates_num)):            
+    for i in range(len(candidates_num)):            
         for name in names:
            if name in candidates_num[i]:
                 sections.append(sections_num[i])
@@ -111,43 +135,44 @@ def extract_candidates_name (sections_num, candidates_num, name_list):
 
     return (sections, candidates)
 
-
 #====identify expressions and formalize them into labels "<VML(tag) L(logic, e.g., greater_equal)=X U(unit)=X>value</VML>"
 def formalize_expressions (candidate):
     text = candidate
-    csvfile = open('data\\rules.csv', 'rb')
-    reader = csv.reader(csvfile)
-    now_pattern = "preprocessing"
+    with open('data/rules.csv', newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        now_pattern = "preprocessing"
 
-    for i,pattern in enumerate(reader):
-        source_pattern = pattern[0]
-        target_pattern = pattern[1]
-        pattern_function = pattern[2]
+        for i, pattern in enumerate(reader):
 
-        if(pattern_function == "process_numerical_values" and pattern_function != now_pattern):
-            matchs = re.findall('<Unit>([^<>]+)</Unit>', text)
-            for match in matchs: text = text.replace(match, match.replace(' / ', '/').replace(' - ','-'))
+            source_pattern = pattern[0]
+            target_pattern = pattern[1]
+            pattern_function = pattern[2]
 
-        if(pattern_function == "process_special_logics" and pattern_function != now_pattern):
-            # process 'select' expression, use the first one
-            global selects
-            aselect = selects.split('|')
-            for selec in aselect:
-                selec = selec.replace('X', '<VML Unit([^<>]+)>([^<>]+)</VML>')
-                text = re.sub(selec, r'<VML Unit\1>\2</VML>', text) #
+            if pattern_function == "process_numerical_values" and pattern_function != now_pattern:
+                matchs = re.findall('<Unit>([^<>]+)</Unit>', text)
+                for match in matchs:
+                    text = text.replace(match, match.replace(' / ', '/').replace(' - ', '-'))
 
-            #  process 'between' expressions
-            global between
-            betweens = between.split('|')
-            for betw in betweens:
-                betw = betw.replace('X', '<VML Unit([^<>]+)>([^<>]+)</VML>')
-                text = re.sub(betw, r'<VML Logic=greater_equal Unit\1>\2</VML> - <VML Logic=lower_equal Unit\3>\4</VML>', text) #
-        text = re.sub(source_pattern, target_pattern, text)
-        now_pattern = pattern_function
+            if pattern_function == "process_special_logics" and pattern_function != now_pattern:
+                # process 'select' expression, use the first one
+                global selects
+                aselect = selects.split('|')
+                for selec in aselect:
+                    selec = selec.replace('X', '<VML Unit([^<>]+)>([^<>]+)</VML>')
+                    text = re.sub(selec, r'<VML Unit\1>\2</VML>', text)
+
+                # process 'between' expressions
+                global between
+                betweens = between.split('|')
+                for betw in betweens:
+                    betw = betw.replace('X', '<VML Unit([^<>]+)>([^<>]+)</VML>')
+                    text = re.sub(betw, r'<VML Logic=greater_equal Unit\1>\2</VML> - <VML Logic=lower_equal Unit\3>\4</VML>', text)
+
+            text = re.sub(source_pattern, target_pattern, text)
+            now_pattern = pattern_function
 
     csvfile.close()
     return text
-
 
 add_mentions_front = 'total|absolute|mean|average|abnormal|gross'
 add_mentions_back = 'test results|test result|test scores|test score|tests|test|scores|score|results|result|values|value|levels|level|ratios|ratio|counts|count|volume'
@@ -193,21 +218,26 @@ def identify_variable (exp_text, fea_dict_dk, fea_dict_umls):
 
     if len(can_texts)>0 and not match and first_ngram.strip() != '': #guess variable
         exp_text = exp_text.replace(first_ngram, "<VL Label=%s Source=ngram>%s</VL>" % (first_ngram, first_ngram), 1)
-#     marks =re.findall(r'<VL Label=([^<>]+)>[^<>]+</VL>', exp_text)
+        #     marks =re.findall(r'<VL Label=([^<>]+)>[^<>]+</VL>', exp_text)
 
     return (exp_text, key_ngrams)
 
 
 def associate_variable_values(exp_text):
+
     # reorder exp_text to arrange variable values in order
     can_str = exp_text
-    can_str = re.sub(r'<VL ([^<>]+)>([^<>]+)</VL> <VML ([^<>]+)>([^<>]+)</VML> <VL ([^<>]+)>([^<>]+)</VL>', r'<VL \1>\2</VL> <VML \3>\4</VML>; <VL \5>\6</VL>', can_str) 
-    can_str = re.sub(r'<VML ([^<>]+)>([^<>]+)</VML> (-|to|and) <VML ([^<>]+)>([^<>]+)</VML>( of| for) <VL ([^<>]+)>([^<>]+)</VL>', r'<VL \7>\8</VL> <VML \1>\2</VML> \3 <VML \4>\5</VML>', can_str) 
-    can_str = re.sub(r'<VML ([^<>]+)>([^<>]+)</VML>( of| for) <VL ([^<>]+)>([^<>]+)</VL>', r'<VL \4>\5</VL> <VML \1>\2</VML>', can_str) 
+    old_can_str = copy.deepcopy(can_str)
+
+    can_str = re.sub(r'<VL ([^<>]+)>([^<>]+)</VL> <VML ([^<>]+)>([^<>]+)</VML> <VL ([^<>]+)>([^<>]+)</VL>', r'<VL \1>\2</VL> <VML \3>\4</VML>; <VL \5>\6</VL>', can_str)
+    can_str = re.sub(r'<VML ([^<>]+)>([^<>]+)</VML> (-|to|and) <VML ([^<>]+)>([^<>]+)</VML>( of| for) <VL ([^<>]+)>([^<>]+)</VL>', r'<VL \7>\8</VL> <VML \1>\2</VML> \3 <VML \4>\5</VML>', can_str)
+    can_str = re.sub(r'<VML ([^<>]+)>([^<>]+)</VML>( of| for) <VL ([^<>]+)>([^<>]+)</VL>', r'<VL \4>\5</VL> <VML \1>\2</VML>', can_str)
     
     # find association    
     variables, vars_values = [], []
     start = 0
+
+
     while can_str.find('<VL') >-1 and can_str.find('<VML') >-1:
         con1 = can_str.find('<VL')
         start = 0 if start == 0 else con1
@@ -254,7 +284,7 @@ def context_validation (var_values, allow_units, error_units):
        
 #====================normalize the unit and their corresponding values
 def normalization (nor_unit, exps):
-#     for i in xrange(len(exps)):
+#     for i in range(len(exps)):
     exp_temp = []
     for exp in exps:
         if ' x ' in exp[2]: 
@@ -286,7 +316,7 @@ def normalization (nor_unit, exps):
             elif exp[3].startswith('g/l'):
                 exp[2], exp[3] = exp[2]*7.745, nor_unit
         elif nor_unit == 'kg/m2':            
-            if exp[3]<>'' and exp[3] <> 'kg/m2':
+            if exp[3] != '' and exp[3] != 'kg/m2':
                 exp[3] = nor_unit
             elif exp[3] == '':
                 exp[3] = nor_unit

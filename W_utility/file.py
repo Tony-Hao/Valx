@@ -1,10 +1,37 @@
+import os
+import sys
+
+# Add the parent directory of W_utility to the Python path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
+# Function to install a Python package using pip3
+def install_package(package_name):
+    import subprocess
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package_name])
+
+# Check if a package is installed, and if not, install it
+def check_and_install_module(package_name):
+    try:
+        __import__(package_name)
+    except ImportError:
+        print(f"{package_name} not found. Installing {package_name}...")
+        install_package(package_name)
+
+# Check and install required modules
+required_modules = ['csv', 'shutil', 'os', 'sys', 'glob', 'pickle', 'nltk']
+
+for module_name in required_modules:
+    check_and_install_module(module_name)
+
 # set of utilities to interact with files
 
 # @author: rm3086 (at) columbia (dot) edu
 
-import csv, shutil, os, sys, glob, cPickle
-csv.field_size_limit(sys.maxint)
-from log import strd_logger
+import csv
+csv.field_size_limit(sys.maxsize)
+from W_utility.log import strd_logger
 
 # logger
 global log
